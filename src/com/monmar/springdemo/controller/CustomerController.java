@@ -2,6 +2,7 @@ package com.monmar.springdemo.controller;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +67,15 @@ public class CustomerController {
 		customerService.deleteCustomer(id);
 		
 		return "redirect:/customer/list";
+	}
+	
+	@PostMapping("/search")
+	public String searchCustomerByNam(@RequestParam("customerName") String name, Model model) {
+		List<Customer> customers  = customerService.searchCustomerByName(name);
+		
+		model.addAttribute("customers", customers);
+		
+		return "list-customers";
 	}
 	
 	
