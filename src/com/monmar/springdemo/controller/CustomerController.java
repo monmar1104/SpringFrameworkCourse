@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.monmar.springdemo.entity.Customer;
 import com.monmar.springdemo.service.CustomerService;
 
+import sun.misc.CEStreamExhausted;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -58,7 +60,13 @@ public class CustomerController {
 		return "customer-form";
 	}
 	
-	
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int id, Model model) {
+		
+		customerService.deleteCustomer(id);
+		
+		return "redirect:/customer/list";
+	}
 	
 	
 	
